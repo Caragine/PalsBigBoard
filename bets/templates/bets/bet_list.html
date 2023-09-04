@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Active Wagers</h1>
+
+<table class="table table-dark">
+    <tr>
+    <th scope="col">Date</th>
+    <th scope="col">Bettor 1</th>
+    <th scope="col">Bettor 1 Wager</th>
+    <th scope="col">Bettor 2</th>
+    <th scope="col">Bettor 2 Wager</th>
+    <th scope="col">Description</th>
+    <th scope="col">Winner</th>
+    </tr>
+    <tr>
+        {% for bet in bet_list %}
+        {% if not bet.settled %}
+        <td>{{bet.create_date}}</td>
+        <td><a href="{% url 'bets:for_user' username=bet.bettor1 %}">{{bet.bettor1}}</a></td>
+        <td>{{bet.bettor1risk}}</td>
+        <td><a href="{% url 'bets:for_user' username=bet.bettor2 %}">{{bet.bettor2}}</a></td>
+        <td>{{bet.bettor2risk}}</td>
+        <td><a href="{% url 'bets:single' username=bet.bettor1 pk=bet.pk %}">{{bet.bet_description}}</a></td>
+        <td>{{bet.winner}}</td>
+    </tr>
+    {% endif %}
+{% endfor %}
+</table>
+
+<h1>Settled Wagers</h1>
+
+<table class="table table-dark">
+    <tr>
+    <th scope="col">Date</th>
+    <th scope="col">Bettor 1</th>
+    <th scope="col">Bettor 1 Wager</th>
+    <th scope="col">Bettor 2</th>
+    <th scope="col">Bettor 2 Wager</th>
+    <th scope="col">Description</th>
+    <th scope="col">Winner</th>
+    </tr>
+    <tr>
+        {% for bet in bet_list %}
+        {% if bet.settled %}
+        <td>{{bet.create_date}}</td>
+        <td><a href="{% url 'bets:for_user' username=bet.bettor1 %}">{{bet.bettor1}}</a></td>
+        <td>{{bet.bettor1risk}}</td>
+        <td><a href="{% url 'bets:for_user' username=bet.bettor2 %}">{{bet.bettor2}}</a></td>
+        <td>{{bet.bettor2risk}}</td>
+        <td><a href="{% url 'bets:single' username=bet.bettor1 pk=bet.pk %}">{{bet.bet_description}}</a></td>
+        <td>{{bet.winner}}</td>
+    </tr>
+    {% endif %}
+{% endfor %}
+</table>
+
+
+{% endblock %}

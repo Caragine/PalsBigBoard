@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Declare Winner and Loser for Bet {{ bet.id }}</h1>
+<form method="post">
+    {% csrf_token %}
+    <label for="winner">Winner:</label>
+    <select name="winner" id="winner">
+        {% for user in users %}
+        <option value="{{ user.id }}">{{ user.username }}</option>
+        {% endfor %}
+    </select><br>
+    <label for="loser">Loser:</label>
+    <select name="loser" id="loser">
+        {% for user in users %}
+            <option value="{{ user.id }}">{{ user.username }}</option>
+        {% endfor %}
+    </select><br>
+    <input type="submit" value="Declare">
+</form>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="betinfo">
+<h1>Bet Details</h1>
+<h4>Bettor1: {{bet.bettor1}} - Wager: {{bet.bettor1risk}}</h4>
+<h4>Bettor2: {{bet.bettor2}}  - Wager: {{bet.bettor2risk}}</h4>
+<p>Bet Description: {{bet.bet_description}}</p>
+<p>Created Date: {{bet.create_date}}</p>
+{% if bet.settled %}
+<p>Settled Date: {{bet.settled_date}}</p>
+{% endif %}
+
+
+<a href="{% url 'bets:declare_winner' bet_id=bet.id %}">Declare Winner and Loser</a>
+
+</div>
+
+
+{% endblock %}
