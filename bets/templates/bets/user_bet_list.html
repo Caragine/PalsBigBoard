@@ -3,7 +3,9 @@
 
 <h1>{{bettor1}}'s Bets</h1>
 
+<h2>Active Wagers</h2>
 {% for bet in bet_list %}
+{% if not bet.settled %}
 {% if bettor1 == bet.bettor1 %}
 <h4>Opponent: {{bet.bettor2}}</h4>
 {% else %}
@@ -11,8 +13,18 @@
 {% endif %}
 <h5>{{bet.bettor1}}'s Wager: {{bet.bettor1risk}} | {{bet.bettor2}}'s Wager: {{bet.bettor2risk}}</h5> 
 <p>{{bet.bet_description}} - {{bet.create_date}}</p>
+{% endif %}
+<h2>Settled Wagers</h2>
 {% if bet.settled %}
+{% if bettor1 == bet.bettor1 %}
+<h4>Opponent: {{bet.bettor2}}</h4>
+{% else %}
+<h4>Opponent: {{bet.bettor1}}</h4>
+{% endif %}
+<h5>{{bet.bettor1}}'s Wager: {{bet.bettor1risk}} | {{bet.bettor2}}'s Wager: {{bet.bettor2risk}}</h5> 
+<p>{{bet.bet_description}} - {{bet.create_date}}</p>
 <p>Settle Date: {{bet.settled_date}}</p>
 {% endif %}
+
 {% endfor %}
 {% endblock %}
