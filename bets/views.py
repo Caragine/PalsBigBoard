@@ -88,17 +88,32 @@ def declare_winner(request, bet_id):
                 winner_balance, _ = UserBalance.objects.get_or_create(user=winner)
                 loser_balance, _ = UserBalance.objects.get_or_create(user=loser)
 
-                winner_balance.balance += bet.bettor1risk
-                loser_balance.balance -= bet.bettor2risk
+                winner_balance.balance += bet.bettor2risk
+                loser_balance.balance -= bet.bettor1risk
                 winner_balance.save()
                 loser_balance.save()
             else:
                 winner_balance, _ = UserBalance.objects.get_or_create(user=winner)
                 loser_balance, _ = UserBalance.objects.get_or_create(user=loser)
-        
-                winner_balance.balance += bet.bettor2risk
-                loser_balance.balance -= bet.bettor1risk
+
+                winner_balance.balance += bet.bettor1risk
+                loser_balance.balance -= bet.bettor2risk
                 winner_balance.save()
                 loser_balance.save()
             return redirect('bets:all')
     return render(request, 'bets/declare_winner.html', {'bet': bet, 'users': users})
+
+            if winner == bet.bettor1:
+                winner_balance, _ = UserBalance.objects.get_or_create(user=winner)
+                loser_balance, _ = UserBalance.objects.get_or_create(user=loser)
+
+                winner_balance.balance += bet.bettor2risk
+                loser_balance.balance -= bet.bettor1risk
+                winner_balance.save()
+                loser_balance.save()
+            else:
+                winner_balance, _ = UserBalance.objects.get_or_create(user=winner)
+                loser_balance, _ = UserBalance.objects.get_or_create(user=loser)
+
+                winner_balance.balance += bet.bettor1risk
+                loser_balance.balance -= bet.bettor2risk
